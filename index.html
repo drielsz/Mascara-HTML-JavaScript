@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        h2,
+        h1 {
+
+            color: aliceblue;
+        }
+
+        .container-cpf h2 {
+            flex: 1;
+            text-align: center;
+        }
+
+        .mt-5 {
+            margin-top: 50px;
+        }
+
+        body {
+            background-image: linear-gradient(to right, #434343 0%, black 100%);
+        }
+
+        .container {
+            flex: 1;
+            height: 100vh;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+        }
+
+        .header {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .input {
+            padding: 15px 100px 10px 10px
+        }
+
+        .out-container {
+            margin-top: 50px;
+        }
+    </style>
+
+
+    <div class="header">
+        <h1>INPUT PROFISSIONAL</h1>
+    </div>
+    <div class="container mt-5">
+        <h2>Trocando ponto por vírgula</h2>
+        <input class="input" id="inputText" value="" oninput="getInputValue()">
+        <div class="mt-5 container-cpf">
+            <h2>Mascara para CPF</h2>
+            <input class="input" id="inputTextCPF" value="" oninput="ConvertCpfMask()" maxlength="14"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+        </div>
+        <div class="mt-5 container-cpf">
+            <h2>Mascara para Aniversario</h2>
+            <input class="input" id="inputTextNiver" value="" oninput="ConvertNiverMask()" maxlength="10"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+        </div>
+        <div class="mt-5 container-cpf">
+            <h2>Mascara para Telefone</h2>
+            <input class="input" id="inputTextTelefone" value="" oninput="ConvertTelefoneMask()"
+                onfocus="FirstParenteses()" maxlength="15"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57 | 8">
+        </div>
+    </div>
+
+
+    <script>
+        function getInputValue() {
+
+            var inputValue = document.getElementById("inputText").value;
+
+            if (inputValue.includes(',')) {
+                for (let i = 0; i < inputValue.length; i++) {
+
+                    var newInputValue = inputValue.replace(",", ".");
+                    inputValue = newInputValue;
+                    console.log(newInputValue)
+                    var xd = document.getElementById("inputText").value = newInputValue
+                }
+            }
+
+        }
+
+        function ConvertCpfMask() {
+            var inputValue = document.getElementById("inputTextCPF").value;
+            if (inputValue.length == 3) {
+                console.log(inputValue.length)
+                inputValue = document.getElementById("inputTextCPF").value += "."
+            }
+            if (inputValue.length == 7) {
+                inputValue = document.getElementById("inputTextCPF").value += "."
+            }
+            if (inputValue.length == 11) {
+                inputValue = document.getElementById("inputTextCPF").value += "-"
+            }
+        }
+
+        function ConvertNiverMask() {
+            var inputValue = document.getElementById("inputTextNiver").value;
+
+            if (inputValue.length == 2) {
+                inputValue = document.getElementById("inputTextNiver").value += "/"
+
+            }
+            else if (inputValue.length == 5) {
+                inputValue = document.getElementById("inputTextNiver").value += "/"
+            }
+        }
+
+        function ConvertTelefoneMask() {
+
+            var inputValue = document.getElementById("inputTextTelefone").value
+            if (inputValue.length == 3) {
+                inputValue = document.getElementById("inputTextTelefone").value += ")"
+                inputValue = document.getElementById("inputTextTelefone").value += " "
+            }
+
+            if (inputValue.length == 9) {
+                inputValue = document.getElementById("inputTextTelefone").value += "-"
+            }
+
+        }
+
+        function FirstParenteses() {
+            inputValue = document.getElementById("inputTextTelefone").value
+            if (!inputValue.includes("(")) {
+                inputValue = document.getElementById("inputTextTelefone").value += "("
+            }
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
